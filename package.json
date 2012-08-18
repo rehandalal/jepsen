@@ -1,0 +1,18 @@
+{
+  "name": "jepsen",
+  "version": "1.0.0",
+  "author": "Rehan Dalal <rdalal@mozilla.com>",
+  "description": "A really annoying IRC bot.",
+  "bin": {
+    "jepsen": "./jepsen.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rehandalal/jepsen.git"
+  },
+  "dependencies": {
+    "underscore": ">=1.3.3",
+    "irc": ">=0.3.4"
+  },
+  "license":"Unlicense"
+}
