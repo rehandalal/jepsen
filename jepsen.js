@@ -2,14 +2,14 @@ var _ = require('underscore');
 var irc = require('irc');
 var path = require('path');
 
-// Default settingsuration
+// Default settinga
 var defaults = {
   "nick": "jepsen"
 }
 
 var settings = {};
 
-// Check for a local settingsuration file
+// Check for a local settings file
 if (path.existsSync('./settings.json')) {
   settings = require('./settings.json');
 }
