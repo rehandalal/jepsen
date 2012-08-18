@@ -2,23 +2,23 @@ var _ = require('underscore');
 var irc = require('irc');
 var path = require('path');
 
-// Default configuration
+// Default settingsuration
 var defaults = {
   "nick": "jepsen"
 }
 
-var config = {};
+var settings = {};
 
-// Check for a local configuration file
-if (path.existsSync('./config.json')) {
-  config = require('./config.json');
+// Check for a local settingsuration file
+if (path.existsSync('./settings.json')) {
+  settings = require('./settings.json');
 }
 
-config = _.extend({}, defaults, config);
+settings = _.extend({}, defaults, settings);
 
 // Create the IRC client
-var client = new irc.Client(config.host, config.nick, {
-  channels: config.channels
+var client = new irc.Client(settings.host, settings.nick, {
+  channels: settings.channels
 });
 
 // Check messaages
@@ -33,12 +33,12 @@ client.on('message', function(nick, channel, message) {
 
 // Check if invited
 client.on('invite', function(channel) {
-  client.join(channel, config.nick);
+  client.join(channel, settings.nick);
 });
 
 // Check if kicked
 client.on('kick', function(channel, nick) {
-  if (nick === config.nick) {
+  if (nick === settings.nick) {
     client.say(channel, 'Bye!');
     client.part(channel);
   }
