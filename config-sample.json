@@ -1,0 +1,7 @@
+{
+  "host": "irc.mozilla.org",
+  "nick": "jepsen",
+  "channels": [
+    "#jepsen"
+  ]
+}
