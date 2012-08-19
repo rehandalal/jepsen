@@ -21,13 +21,37 @@ var client = new irc.Client(settings.host, settings.nick, {
   channels: settings.channels
 });
 
+// Commands
+var commands = {
+  'ping': function(channel, nick) {
+    client.say(channel, nick + ': pong!');
+  },
+  'botsnack': function(channel, nick) {
+    client.say(channel, nick + ': Mmm... Delicious!');
+  },
+  'bye': function(channel) {
+    client.say(channel, 'Bye!');
+    client.part(channel);
+  }
+}
+
 // Check messaages
 client.on('message', function(nick, channel, message) {
-  if (message.search(/\bcrazy\b/i) !== -1) {
-    client.say(channel, 'Hey ' + nick + ' I just met you...');
-    client.say(channel, 'And this is crazy...');
-    client.say(channel, "But here's my handle...");
-    client.say(channel, 'So ping me, maybe?');
+  if (nick !== settings.nick) {
+    if (message.search(/\bcrazy\b/i) !== -1) {
+      client.say(channel, 'Hey ' + nick + ' I just met you...');
+      client.say(channel, 'And this is crazy...');
+      client.say(channel, "But here's my handle...");
+      client.say(channel, 'So ping me, maybe?');
+    }
+
+    // Check if spoken to and run a command if available
+    if (message.indexOf(settings.nick + ': ') === 0) {
+      var command = commands[message.substr(settings.nick.length + 2)];
+      if (typeof command === 'function') {
+        command(channel, nick);
+      }
+    }
   }
 });
 
@@ -39,8 +63,7 @@ client.on('invite', function(channel) {
 // Check if kicked
 client.on('kick', function(channel, nick) {
   if (nick === settings.nick) {
-    client.say(channel, 'Bye!');
-    client.part(channel);
+    commands.bye(channel);
   }
 });
 
