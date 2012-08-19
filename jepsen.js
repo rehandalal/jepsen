@@ -1,8 +1,9 @@
 var _ = require('underscore');
 var irc = require('irc');
 var path = require('path');
+var utils = require('./utils');
 
-// Default settinga
+// Default settings
 var defaults = {
   "nick": "jepsen"
 }
@@ -23,15 +24,20 @@ var client = new irc.Client(settings.host, settings.nick, {
 
 // Commands
 var commands = {
-  'ping': function(channel, nick) {
-    client.say(channel, nick + ': pong!');
-  },
   'botsnack': function(channel, nick) {
     client.say(channel, nick + ': Mmm... Delicious!');
   },
   'bye': function(channel) {
     client.say(channel, 'Bye!');
     client.part(channel);
+  },
+  'help': function(channel) {
+    client.say(channel, 'Available commands:');
+    client.say(channel, 'botsnack - om nom nom');
+    client.say(channel, 'bye - kick me out');
+  },
+  'ping': function(channel, nick) {
+    client.say(channel, nick + ': pong!');
   }
 }
 
@@ -46,8 +52,11 @@ client.on('message', function(nick, channel, message) {
     }
 
     // Check if spoken to and run a command if available
-    if (message.indexOf(settings.nick + ': ') === 0) {
-      var command = commands[message.substr(settings.nick.length + 2)];
+    var re = new RegExp('^(?:' + utils.escapeRegExp(settings.nick) + '):?\\s*(.+?)$');
+    var match = re.exec(message);
+
+    if (match) {
+      var command = commands[match[1]];
       if (typeof command === 'function') {
         command(channel, nick);
       }
