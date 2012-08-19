@@ -1,7 +1,7 @@
 {
-  "host": "irc.mozilla.org",
+  "host": "irc.server.com",
   "nick": "jepsen",
   "channels": [
-    "#jepsen"
+    "#channel"
   ]
 }
