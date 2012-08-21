@@ -1,4 +1,4 @@
-var path = require('path');
+var fs = require('fs');
 
 var settings = {
   "pg": {
@@ -7,9 +7,9 @@ var settings = {
 }
 
 // Check for a local settings file
-if (path.existsSync('./settings-dev.json')) {
+if (fs.existsSync('./settings-dev.json')) {
   settings = require('./settings-dev.json');
-} else if (path.existsSync('./settings.json')) {
+} else if (fs.existsSync('./settings.json')) {
   settings = require('./settings.json');
 }
 

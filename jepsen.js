@@ -1,6 +1,6 @@
 var _ = require('underscore');
+var fs = require('fs');
 var irc = require('irc');
-var path = require('path');
 var utils = require('./utils');
 
 // Default settings
@@ -15,9 +15,9 @@ var defaults = {
 var settings = {};
 
 // Check for a local settings file
-if (path.existsSync('./settings-dev.json')) {
+if (fs.existsSync('./settings-dev.json')) {
   settings = require('./settings-dev.json');
-} else if (path.existsSync('./settings.json')) {
+} else if (fs.existsSync('./settings.json')) {
   settings = require('./settings.json');
 }
 
