@@ -1,7 +1,12 @@
 {
+  "debug": false,
   "host": "irc.server.com",
   "nick": "jepsen",
   "channels": [
     "#channel"
-  ]
+  ],
+  "pg": {
+    "enabled": false,
+    "connectionString": "tcp://user:pass@host/dbname"
+  }
 }
