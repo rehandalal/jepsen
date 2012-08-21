@@ -20,7 +20,6 @@ if (settings.pg.enabled) {
   // If no connection string is provided in settings then check for an ENV
   // variable with one.
   if (!settings.pg.connectionString) {
-    var process = require('process');
     settings.pg.connectionString = process.env.DATABASE_URL;
   }
 
