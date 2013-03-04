@@ -11,12 +11,12 @@ Installation
 
 - Clone the repo:
 
-    $ git clone https://github.com/rehandalal/jepsen.git
+        $ git clone https://github.com/rehandalal/jepsen.git
 
 - Use npm to get dependencies:
 
-    $ cd jepsen
-    $ npm install .
+        $ cd jepsen
+        $ npm install .
 
 
 Configuration
